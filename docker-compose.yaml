@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  gpu_database:
+    image: postgres:15.3
+    container_name: nvidia_postgres
+    environment:
+      POSTGRES_USER: Rick
+      POSTGRES_PASSWORD: Sneshi0708
+      POSTGRES_DB: gpu_db
+    ports:
+      - "6000:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - gpu_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_ui
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dsaptarshi116@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: Sneshi0708
+    ports:
+      - "8080:80"
+    networks:
+      - gpu_network
+    depends_on:
+      - gpu_database
+volumes:
+  pgdata:
+
+networks:
+  gpu_network:
+    driver: bridge
