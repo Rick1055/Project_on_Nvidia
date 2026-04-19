@@ -59,7 +59,7 @@ WITH arch_count AS
     SELECT
         manufacturer,
         architecture_group,
-        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized
+        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized by NVIDIA
         COUNT(gpu_id) AS no_of_cards
     FROM 
         arch_count
@@ -79,7 +79,7 @@ UNION ALL
     SELECT
         manufacturer,
         architecture_group,
-        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized
+        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized by AMD/ATI
         COUNT(gpu_id) AS no_of_cards
     FROM 
         arch_count
@@ -98,7 +98,7 @@ UNION ALL
     SELECT
         manufacturer,
         architecture_group,
-        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized
+        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized by Intel
         COUNT(gpu_id) AS no_of_cards
     FROM 
         arch_count
