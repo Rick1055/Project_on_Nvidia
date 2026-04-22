@@ -135,38 +135,53 @@ Using **relative baselining on bus width**, a comparative PCIe performance table
 
 ---
 
-### 4. NVIDIA — Most Prolific Architectures
+### 4. Most Prolific Architectures by Manufacturer
+
+#### NVIDIA
 
 | Architecture | Era Span | Cards Released |
 |---|---|---|
-| NVIDIA Legacy (GeForce 1–7 series) | ~23 years | 251 cards |
-| NVIDIA Fermi (GTX 400/500 series) | ~24 years | 251 cards |
-| NVIDIA Kepler (GTX 600/700 series) | ~15 years | 237 cards |
+| NVIDIA Legacy (GeForce 1–7 series) | ~8 years | 251 cards |
+| NVIDIA Fermi (GTX 400/500 series) | ~7 years | 251 cards |
+| NVIDIA Kepler (GTX 600/700 series) | ~5 years | 237 cards |
 
 NVIDIA's early architectures remained in production or derivative form for long stretches of time, reflecting broad market coverage across budget to enthusiast segments.
 
----
-
-### 5. AMD — Most Prolific Architectures
+#### AMD
 
 | Architecture | Era Span | Cards Released |
 |---|---|---|
-| ATI/AMD Radeon Legacy | ~17 years | 77 cards |
-| AMD Polaris (RX 400/500 series) | ~8 years | 55 cards |
-| AMD RDNA 2 (RX 6000 series) | ~18 years | 42 cards |
+| ATI/AMD Radeon Legacy | ~8 years | 77 cards |
+| AMD Polaris (RX 400/500 series) | ~5 years | 55 cards |
+| AMD RDNA 2 (RX 6000 series) | ~3 years | 42 cards |
 
 AMD's RDNA 2 has maintained a long production run, reflecting its competitive position across mainstream and high-end segments.
 
----
-
-### 6. Intel — Architecture Snapshot
+#### Intel
 
 | Architecture | Era Span | Cards Released |
 |---|---|---|
-| Intel Integrated Graphics | ~11 years | 102 cards |
+| Intel Integrated Graphics | ~12 years | 102 cards |
 | Intel Arc (Alchemist) | ~1 year | 9 cards |
+| Intel Iris Xe MAX | ~1 year | 4 cards |
 
 Intel's GPU presence is almost entirely integrated graphics. The Arc Alchemist release marks Intel's first serious entry into the discrete GPU market.
+
+---
+
+#### Final Verdict
+
+**NVIDIA**
+
+NVIDIA shows its experience by introducing architectures which are robust and built for a longer run. They have an average lifespan of approximately 7 years or more. NVIDIA integrates their GPU architectures across various forms of GPU: full-blown desktop PC GPUs or lightweight mobile GPUs for laptops and other lighter devices, tweaking the technology as the implementation changes. They produce an average of about 38 cards per year using a single architecture, which puts into perspective how much utilization NVIDIA squeezes out of a single architecture. They show their experience through technical dominance. Games are now optimized specifically with NVIDIA's Ray Tracing and Path Tracing capabilities in mind, along with their Frame Gen technology through DLSS. Machine learning is faster, smoother and more efficient if one utilizes their CUDA architecture, which can only be accessed with a newer NVIDIA card. Whether one likes it or not, team green is currently dominating the GPU market.
+
+**AMD**
+
+AMD, unlike NVIDIA, switches out its chip architectures more often, which may look like hardware panic or trial-and-error, but it is actually a result of strategic pivots rather than just release cycles. AMD Legacy and Polaris lasted many years and belonged to the GCN (Graphics Core Next) era. Although these cards were great for compute — early crypto mining and workstations — they became inefficient for modern gaming. While NVIDIA kept refining their Streaming Multiprocessor (SM) design, AMD recognized that GCN couldn't keep up. They had to fundamentally split their architecture into two separate paths: RDNA for gaming and CDNA for data centers. This shows AMD's perspective on architecture building — each architecture specializes in one particular area, whereas NVIDIA follows the principle of "one chip rules all." AMD's rapid adaptation has kept them relevant in a market dominated by NVIDIA, with a focus on an open ecosystem through ROCm (Radeon Open Compute). Their FSR technology is also hardware-independent, unlike NVIDIA's DLSS which requires an NVIDIA card to function.
+
+**Intel**
+
+Intel expresses its experience through unmatched ubiquity and long-term architectural stability. Unlike the discrete-focused strategies of its competitors, Intel has historically dominated by being the default choice, maintaining its integrated graphics architectures for an average of 12 active years — the longest lifespan in the dataset. This longevity reflects a business strategy centered on reliability and scale; by embedding GPUs directly into their CPUs, Intel ensures their hardware is present in nearly every office and student laptop globally. While they were late to the high-end discrete market, Intel's recent pivot with the Arc (Alchemist/Battlemage) series shows a strategic focus on modern media standards, such as being the first to offer hardware-accelerated AV1 encoding. In 2026, their "AI Everywhere" initiative expresses their experience by democratizing high-performance compute — moving away from the "one big card" model to embedding powerful GPU and NPU (Neural Processing Unit) cores directly into the silicon of every standard processor. For a developer, Intel expresses its experience through the oneAPI ecosystem, a unified programming model designed to break down hardware silos and allow code to run seamlessly across CPUs, GPUs, and FPGAs, positioning Intel as the essential bridge between general-purpose computing and specialized AI acceleration.
 
 ---
 
