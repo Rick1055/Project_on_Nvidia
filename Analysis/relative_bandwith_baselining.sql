@@ -46,11 +46,22 @@ SELECT
     agg.bus_interface,
     agg.total_models,
     agg.mem_category,
-    agg.avg_bus_width,
-    ROUND((agg.avg_bus_width/base.standard_width )*100::numeric,2) AS rel_performance
+    agg.avg_bus_width
+    /*ROUND((agg.avg_bus_width/base.standard_width )*100::numeric,2) AS rel_performance*/
 FROM
     aggregated_stats AS agg
-CROSS JOIN
-    baseline AS base
+/*CROSS JOIN
+    baseline AS base*/
+WHERE agg.mem_category = 'Unknown'
 ORDER BY 
-    rel_performance DESC
+    agg.avg_bus_width DESC;
+
+SELECT
+    agg.bus_interface,
+    agg.mem_category
+FROM
+    aggregated_stats AS agg
+WHERE
+    agg.mem_category = 'Unknown'
+ORDER BY
+    agg.avg_bus_width

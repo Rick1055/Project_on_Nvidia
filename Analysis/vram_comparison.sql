@@ -57,6 +57,7 @@ ORDER BY
      and DLSS for smoother gaming eperience, AMD has to compete aggressively on raw hardware value. Their primary tactic for the 
      last few generations has been offering larger VRAM buffers at lower price point to win over budget-conscious consumers and 
        bgamers who want to future-proof their builds.
+*/
 /*
 [
   {

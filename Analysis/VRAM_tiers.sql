@@ -4,8 +4,10 @@
     -Why? A clear distinction between tiers of GPU facilitates customers or new pc builders to make an informed choice on the GPU 
      they purchase based on their needs
 */
-
-SELECT
+WITH vram_tier AS
+(
+  SELECT
+    gpu_id,
     manufacturer,
     product_name,
     igp,
@@ -16,10 +18,18 @@ SELECT
          WHEN mem_size > 12 AND mem_size <=24 THEN 'High Level Card'
          WHEN mem_size > 24 THEN 'Enthusiast Card'
     END AS vram_category
+  FROM
+      gpu_specs
+  WHERE  
+      mem_size IS NOT NULL --filters out the data which is completely missing from the database
+)
+SELECT
+   vram_category,
+   COUNT(gpu_id) AS no_of_cards
 FROM
-    gpu_specs
-WHERE  
-    mem_size IS NOT NULL; --filters out the data which is completely missing from the database
+  vram_tier
+GROUP BY
+  vram_category
 
 /* Why the categorization of all integrated graphics cards into entry level cards?
    -Integrated GPUs have always been disregarded by the newcomers in the GPU community due to the belief that they don't hold a candle to the 

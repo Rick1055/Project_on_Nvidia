@@ -26,22 +26,33 @@ WITH arch_count AS
             WHEN manufacturer = 'NVIDIA' AND gpu_chip LIKE 'GP1%' THEN 'NVIDIA Pascal (GTX 10-series)'
             WHEN manufacturer = 'NVIDIA' AND gpu_chip LIKE 'GM2%' THEN 'NVIDIA Maxwell 2.0 (GTX 900-series)'
             WHEN manufacturer = 'NVIDIA' AND gpu_chip LIKE 'GK%' THEN 'NVIDIA Kepler (GTX 600/700-series)'
-            WHEN manufacturer = 'NVIDIA' AND gpu_chip LIKE 'GF%' THEN 'NVIDIA Fermi (GTX 400/500-series)'
+            WHEN manufacturer = 'NVIDIA' AND gpu_chip IN ('GF100', 'GF104', 'GF106', 'GF108', 'GF110', 'GF114', 'GF116', 'GF119') THEN 'NVIDIA Fermi (GTX 400/500-series)'
             WHEN manufacturer = 'NVIDIA' AND gpu_chip LIKE 'GT2%' THEN 'NVIDIA Tesla (GTX 200-series)'
             WHEN manufacturer = 'NVIDIA' AND gpu_chip LIKE 'G9%' THEN 'NVIDIA G9x (8800/9800-series)'
             WHEN manufacturer = 'NVIDIA' AND gpu_chip LIKE 'NV%' THEN 'NVIDIA Legacy (GeForce 1-7)'
 
             --AMD/ATI Architectures
-            WHEN manufacturer = 'AMD' AND gpu_chip LIKE 'Navi 3%' THEN 'AMD RDNA 3 (RX 7000-series)'
-            WHEN manufacturer = 'AMD' AND gpu_chip LIKE 'Navi 2%' THEN 'AMD RDNA 2 (RX 6000-series)'
-            WHEN manufacturer = 'AMD' AND gpu_chip LIKE 'Navi 1%' THEN 'AMD RDNA 1 (RX 5000-series)'
-            WHEN manufacturer = 'AMD' AND gpu_chip LIKE 'Vega%' THEN 'AMD Vega'
-            WHEN manufacturer = 'AMD' AND (gpu_chip LIKE 'Polaris' OR gpu_chip LIKE 'Ellesmere%' OR gpu_chip LIKE 'Baffin%') THEN 'AMD Polaris (RX 400/500)'
-            WHEN manufacturer = 'AMD' AND (gpu_chip LIKE 'RV%' OR gpu_chip LIKE 'R3%' OR gpu_chip LIKE 'R4%' OR gpu_chip LIKE 'R5%') THEN 'ATI/AMD Radeon Legacy'
+                    -- Modern AMD Architectures (Exact Matches to prevent collisions)
+            WHEN manufacturer = 'AMD' AND gpu_chip IN ('Navi 31', 'Navi 32', 'Navi 33') THEN 'AMD RDNA 3 (RX 7000-series)'
+            WHEN manufacturer = 'AMD' AND gpu_chip IN ('Navi 21', 'Navi 22', 'Navi 23', 'Navi 24') THEN 'AMD RDNA 2 (RX 6000-series)'
+            WHEN manufacturer = 'AMD' AND gpu_chip IN ('Navi 10', 'Navi 12', 'Navi 14') THEN 'AMD RDNA 1 (RX 5000-series)'
+            WHEN manufacturer = 'AMD' AND gpu_chip IN ('Vega 10', 'Vega 12', 'Vega 20') THEN 'AMD Vega'
+
+            -- Mid-Era AMD (Strict wildcards for 2-digit numbers)
+            WHEN manufacturer = 'AMD' AND (gpu_chip LIKE 'Polaris __' OR gpu_chip IN ('Ellesmere', 'Baffin')) THEN 'AMD Polaris (RX 400/500)'
+
+                    -- Legacy AMD
+            WHEN manufacturer = 'AMD' AND (
+                gpu_chip LIKE 'RV___' OR 
+                gpu_chip LIKE 'R3__' OR 
+                gpu_chip LIKE 'R4__' OR 
+                gpu_chip LIKE 'R5__'
+            ) THEN 'ATI/AMD Radeon Legacy'
 
             --Intel Graphics
             WHEN manufacturer = 'Intel' AND (gpu_chip LIKE '%GT1' OR gpu_chip LIKE '%GT2%' OR gpu_chip LIKE '%GT3%') THEN 'Intel Integrated Graphics'
-            WHEN manufacturer = 'Intel' AND gpu_chip LIKE '%DG2%' THEN 'Intel Arc (Alchemist)'
+            WHEN manufacturer = 'Intel' AND gpu_chip LIKE 'DG1%' THEN 'Intel Iris Xe MAX'
+            WHEN manufacturer = 'Intel' AND gpu_chip LIKE 'DG2%' THEN 'Intel Arc (Alchemist)'
 
             --Game Consoles
             WHEN gpu_chip IN ('Oberon','Scarlett','Prospero') THEN 'Current Gen Console (PS5/XSX)'
@@ -59,7 +70,7 @@ WITH arch_count AS
     SELECT
         manufacturer,
         architecture_group,
-        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized
+        (MAX(release_year)-MIN(release_year))+1 AS active_years, --calculates the years in which the chip architecture was being utilized
         COUNT(gpu_id) AS no_of_cards
     FROM 
         arch_count
@@ -79,7 +90,7 @@ UNION ALL
     SELECT
         manufacturer,
         architecture_group,
-        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized
+        (MAX(release_year)-MIN(release_year))+1 AS active_years, --calculates the years in which the chip architecture was being utilized
         COUNT(gpu_id) AS no_of_cards
     FROM 
         arch_count
@@ -98,7 +109,7 @@ UNION ALL
     SELECT
         manufacturer,
         architecture_group,
-        (MAX(release_year)-MIN(release_year)) AS active_years, --calculates the years in which the chip architecture was being utilized
+        (MAX(release_year)-MIN(release_year))+1 AS active_years, --calculates the years in which the chip architecture was being utilized
         COUNT(gpu_id) AS no_of_cards
     FROM 
         arch_count
@@ -110,7 +121,7 @@ UNION ALL
     ORDER BY
         no_of_cards DESC
     LIMIT 3
-)
+);
 
 
 /*
